@@ -11,8 +11,8 @@
 
 <body>
   <h3>Books</h3>
-  <input type="text" id="bookName">
-  <input type="text" id="year">
+  <input type="text" id="title">
+  <input type="text" id="published">
   <input type="text" id="bookId">
   <button id="saveBook">Save book</button>
   <button id="updateBook">Update book</button>
@@ -21,16 +21,17 @@
   <button id="getAllBooks">Get All Books</button>
 
   <script>
-    let bookName = $('#bookName')
-    let year = $('#year')
+    const serverurl = 'http://localhost:3001'
+    let title = $('#title')
+    let published = $('#published')
     let saveBook = $('#saveBook')
     saveBook.on("click", function () {
       $.ajax({
-        url: 'http://localhost:3000/api2/saveBook',
+        url: `${serverurl}/api2/saveBook`,
         method: 'POST',
         data: {
-          name: bookName.val(),
-          year: year.val(),
+          title: title.val(),
+          published: published.val(),
         },
         success: function (msg) {
           console.log(msg)
@@ -40,7 +41,7 @@
     let getAllBooks = $('#getAllBooks')
     getAllBooks.on("click", function () {
       $.ajax({
-        url: 'http://localhost:3000/api2/getAllBooks',
+        url: `${serverurl}/api2/getAllBooks`,
         method: 'GET',
         success: function (books) {
           console.log(books)
@@ -52,11 +53,11 @@
     let updateBook = $('#updateBook')
     updateBook.on("click", function () {
       $.ajax({
-        url: 'http://localhost:3000/api2/updateBook/' + bookId.val(),
+        url: `${serverurl}/api2/updateBook/` + bookId.val(),
         method: 'PATCH',
         data: {
-          name: bookName.val(),
-          year: year.val(),
+          title: title.val(),
+          published: published.val(),
         },
         success: function (msg) {
           console.log(msg)
@@ -67,7 +68,7 @@
     let deleteBook = $('#deleteBook')
     deleteBook.on("click", function () {
       $.ajax({
-        url: 'http://localhost:3000/api2/deleteBook/' + bookId.val(),
+        url: `${serverurl}/api2/deleteBook/` + bookId.val(),
         method: 'DELETE',
         success: function (msg) {
           console.log(msg)
